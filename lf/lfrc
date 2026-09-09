@@ -1,0 +1,67 @@
+set shell sh                            # Use sh for shell commands
+set shellopts '-eu'                     # Exit on errors and unset variables
+set ifs "\n"                            # Split file lists on newlines
+set scrolloff 10                        # Keep space around cursor when scrolling
+set cursorpreviewfmt "\033[7;2m"        # Use dimmed reverse video for preview cursor
+map <enter> shell                       # Enter shell command mode
+map ` !true                             # Show output of previous command
+map . set hidden!                       # Toggle hidden files
+map a :push %mkdir<space>               # Create directory
+
+map x $$f                               # Execute current file
+map X !$f                               # Execute current file and wait
+
+# Use custom opener
+cmd open ${{
+    "$OPENER" "$f"
+}}
+
+map o &mimeopen "$f"                    # Open file with default application
+map O $mimeopen --ask "$f"              # Choose application to open file
+
+# Move files to trash
+cmd trash %set -f; mv -t ~/.trash -- $fx
+
+# Permanently delete files with confirmation
+cmd delete ${{
+    set -f
+    printf '%s\n' "$fx"
+    printf "delete? [y/N] "
+    read ans
+    [ "$ans" = "y" ] && rm -rf $fx
+}}
+
+%mkdir -p ~/.trash                      # Make sure trash folder exists
+map D trash                             # Move files to trash
+map <delete> delete                     # Permanently delete files
+
+# Extract archive according to format
+cmd extract ${{
+    set -f
+    case "$f" in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf "$f";;
+        *.tar.gz|*.tgz) tar xzvf "$f";;
+        *.tar.xz|*.txz) tar xJvf "$f";;
+        *.zip) unzip "$f";;
+        *.rar) unrar x "$f";;
+        *.7z) 7z x "$f";;
+    esac
+}}
+
+# Create gzip-compressed tar archive
+cmd tar ${{
+    set -f
+    mkdir "$1"
+    cp -r $fx "$1"
+    tar czf "$1.tar.gz" "$1"
+    rm -rf "$1"
+}}
+
+# Create zip archive
+cmd zip ${{
+    set -f
+    mkdir "$1"
+    cp -r $fx "$1"
+    zip -r "$1.zip" "$1"
+    rm -rf "$1"
+}}
