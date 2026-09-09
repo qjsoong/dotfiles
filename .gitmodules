@@ -1,0 +1,12 @@
+[submodule "dwm"]
+	path = dwm
+	url = git@github.com:qjsoong/dwm.git
+[submodule "st"]
+	path = st
+	url = git@github.com:qjsoong/st.git
+[submodule "dmenu"]
+	path = dmenu
+	url = git@github.com:qjsoong/dmenu.git
+[submodule "slstatus"]
+	path = slstatus
+	url = git@github.com:qjsoong/slstatus.git
