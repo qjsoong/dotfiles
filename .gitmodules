@@ -10,3 +10,9 @@
 [submodule "slstatus"]
 	path = slstatus
 	url = git@github.com:qjsoong/slstatus.git
+[submodule "vim/pack/default/start/commentary"]
+	path = vim/pack/default/start/commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/pack/default/start/gruvbox"]
+	path = vim/pack/default/start/gruvbox
+	url = https://github.com/gruvbox-community/gruvbox.git

@@ -18,6 +18,11 @@ set relativenumber      " Show relative line numbers
 set nowrap              " Disable line wrapping
 set sidescrolloff=8     " Keep 8 columns from screen edges
 
+" Use the Gruvbox dark palette with hard contrast.
+set termguicolors
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
